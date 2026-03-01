@@ -1,0 +1,106 @@
+/* Tổng thể background */
+.hero-container {
+  background-color: #0b0e14; /* Màu nền tối */
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 60px 10%;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+  position: relative;
+  
+}
+
+/* Hiệu ứng mạng lưới mờ phía sau (Optional) */
+.hero-container::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(100, 100, 255, 0.05) 0%, transparent 70%);
+}
+
+/* Badge nhỏ phía trên */
+.badge {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 5px 15px;
+  border-radius: 20px;
+  display: inline-block;
+  font-size: 13px;
+  margin-bottom: 20px;
+  color: #8bb3ff;
+}
+
+/* Tiêu đề lớn */
+.hero-title {
+  color: #fff !important;
+  font-size: 48px !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+}
+
+/* Chữ Gradient */
+.gradient-text {
+  background: linear-gradient(90deg, #71b7ff, #b388ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Mô tả */
+.hero-description {
+  color: #a0a0a0 !important;
+  font-size: 16px;
+  max-width: 500px;
+  margin: 25px 0 !important;
+}
+
+/* Nút bấm Primary */
+.btn-primary {
+  background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%) !important;
+  border: none !important;
+  height: 50px !important;
+  padding: 0 30px !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+}
+
+/* Nút bấm Secondary */
+.btn-secondary {
+  height: 50px !important;
+  padding: 0 30px !important;
+  border-radius: 8px !important;
+  border-color: #333 !important;
+  color: #ccc !important;
+}
+
+/* Phần Logo bên phải (Demo bằng CSS) */
+.hero-image-wrapper {
+  text-align: center;
+}
+
+.logo-text {
+  font-size: 60px;
+  font-weight: 800;
+  display: flex;
+  flex-direction: column;
+  line-height: 0.9;
+}
+
+.logo-text .media {
+  letter-spacing: 5px;
+}
+
+.logo-sub {
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-top: 10px;
+    opacity: 0.8;
+}
+.logo-glow{
+  position: absolute;
+  opacity: 0.6;
+  top: -300%;
+  z-index: -4;
+  right: -22%;
+}

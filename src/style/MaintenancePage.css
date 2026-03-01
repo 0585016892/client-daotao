@@ -1,0 +1,84 @@
+.maintenance-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9fbfd; /* Màu nền trắng xanh cực nhạt */
+  padding: 20px;
+}
+
+.maintenance-card {
+  background: #ffffff;
+  max-width: 500px;
+  width: 100%;
+  padding: 50px 40px;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
+}
+
+.maintenance-icon-box {
+  margin-bottom: 30px;
+}
+
+.gear-icon {
+  font-size: 80px;
+  color: #1890ff;
+  filter: drop-shadow(0 10px 15px rgba(24, 144, 255, 0.2));
+}
+
+.m-title {
+  margin-bottom: 15px !important;
+  color: #262626 !important;
+  font-weight: 700 !important;
+}
+
+.m-desc {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 40px !important;
+  line-height: 1.6;
+}
+
+.m-divider {
+  position: relative;
+  text-align: center;
+  margin: 30px 0;
+}
+
+.m-divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #f0f0f0;
+  z-index: 1;
+}
+
+.m-divider-text {
+  position: relative;
+  background: #fff;
+  padding: 0 15px;
+  color: #bfbfbf;
+  font-size: 12px;
+  z-index: 2;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.social-btn {
+  font-size: 20px !important;
+  color: #8c8c8c !important;
+  transition: all 0.3s !important;
+}
+
+.social-btn:hover {
+  color: #1890ff !important;
+  transform: translateY(-3px);
+}
+
+.m-footer {
+  margin-top: 50px;
+}

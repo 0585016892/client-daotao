@@ -1,0 +1,109 @@
+.custom-course-card {
+  background: #121821;
+  border: 1px solid #1e2633;
+  border-radius: 24px;
+  padding: 40px 24px 30px;
+  position: relative;
+  transition: all 0.3s ease;
+  color: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Hiệu ứng viền sáng khi hover */
+.custom-course-card:hover {
+  border-color: #4facfe;
+  box-shadow: 0 0 20px rgba(79, 172, 254, 0.2);
+}
+
+/* Badge Phổ Biến */
+.popular-badge {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, #ff8a3d, #ff6a00);
+  padding: 6px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(255, 106, 0, 0.4);
+  white-space: nowrap;
+}
+
+/* Header & Level Tag */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.course-name {
+  color: white !important;
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+  flex: 1;
+}
+
+.level-tag {
+  background: rgba(179, 136, 255, 0.1) !important;
+  color: #b388ff !important;
+  border: 1px solid rgba(179, 136, 255, 0.3) !important;
+  border-radius: 12px !important;
+  padding: 2px 12px !important;
+  font-size: 12px !important;
+}
+
+/* Giá tiền */
+.price-section {
+  font-size: 38px;
+  font-weight: 800;
+  color: #71b7ff;
+  margin-bottom: 30px;
+  background: linear-gradient(90deg, #71b7ff, #4facfe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.price-section span {
+  font-size: 24px;
+  margin-left: 4px;
+}
+
+/* Danh sách tính năng */
+.feature-list {
+  margin-bottom: 35px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  color: #e0e0e0;
+  font-size: 15px;
+}
+
+.check-icon {
+  color: #4caf50;
+  font-size: 18px;
+}
+
+/* Nút Chọn Gói */
+.btn-select-package {
+  height: 54px !important;
+  border-radius: 14px !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  background: linear-gradient(90deg, #6a82fb, #fc5c7d) !important; /* Gradient tím hồng giống ảnh */
+  border: none !important;
+  transition: transform 0.2s ease !important;
+}
+
+.btn-select-package:hover {
+  transform: scale(1.02);
+  filter: brightness(1.1);
+  box-shadow: 0 8px 20px rgba(252, 92, 125, 0.4);
+}

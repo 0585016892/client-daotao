@@ -1,0 +1,142 @@
+import {
+  Row,
+  Col,
+  Input,
+  Select,
+  Card,
+  Spin,
+  Empty,
+  Pagination,
+} from "antd";
+import { useEffect, useState, useCallback } from "react";
+import { getCourses } from "../api/courseApi";
+import CourseCard from "../components/CourseCard";
+
+const { Search } = Input;
+const { Option } = Select;
+
+export default function Courses() {
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  // ===== FILTER =====
+  const [keyword, setKeyword] = useState("");
+  const [platform, setPlatform] = useState(null);
+  const [sort, setSort] = useState(null);
+
+  // ===== PAGINATION =====
+  const [page, setPage] = useState(1);
+  const pageSize = 8;
+  const [total, setTotal] = useState(0);
+
+  // ===== FETCH DATA =====
+  const fetchCourses = useCallback(async () => {
+    setLoading(true);
+    try {
+      const res = await getCourses({
+        page,
+        limit: pageSize,
+        keyword: keyword || undefined,
+        platform: platform || undefined,
+        sort: sort || undefined,
+      });
+
+      setCourses(res.data.data);
+      setTotal(res.data.total);
+    } catch (err) {
+      console.error("❌ Fetch courses error:", err);
+    } finally {
+      setLoading(false);
+    }
+  }, [page, keyword, platform, sort]);
+
+  useEffect(() => {
+    fetchCourses();
+  }, [fetchCourses]);
+
+  return (
+    <div style={{ padding: "32px 0" }}>
+      {/* ===== FILTER BAR ===== */}
+      <Card style={{ marginBottom: 24 }}>
+        <Row gutter={[16, 16]}>
+          <Col xs={24} md={8}>
+            <Search
+              placeholder="Tìm khóa học..."
+              allowClear
+              onSearch={(v) => {
+                setKeyword(v.trim());
+                setPage(1);
+              }}
+            />
+          </Col>
+
+          <Col xs={12} md={8}>
+            <Select
+              allowClear
+              placeholder="Nền tảng"
+              style={{ width: "100%" }}
+              value={platform}
+              onChange={(v) => {
+                setPlatform(v || null);
+                setPage(1);
+              }}
+            >
+              <Option value="Facebook">Facebook</Option>
+              <Option value="Google">Google</Option>
+              <Option value="TikTok">TikTok</Option>
+              <Option value="Instagram">Instagram</Option>
+              <Option value="Đa nền tảng">Đa nền tảng</Option>
+            </Select>
+          </Col>
+
+          <Col xs={12} md={8}>
+            <Select
+              allowClear
+              placeholder="Sắp xếp"
+              style={{ width: "100%" }}
+              value={sort}
+              onChange={(v) => {
+                setSort(v || null);
+                setPage(1);
+              }}
+            >
+              <Option value="newest">Mới nhất</Option>
+              <Option value="price_asc">Giá tăng dần</Option>
+              <Option value="price_desc">Giá giảm dần</Option>
+            </Select>
+          </Col>
+        </Row>
+      </Card>
+
+      {/* ===== COURSE LIST ===== */}
+      {loading ? (
+        <div style={{ textAlign: "center", padding: 60 }}>
+          <Spin size="large" />
+        </div>
+      ) : courses.length === 0 ? (
+        <Empty description="Không tìm thấy khóa học" />
+      ) : (
+        <>
+          <Row gutter={[16, 24]} style={{ margin: "0 16px" }}>
+            {courses.map((course) => (
+              <Col key={course.id} xs={24} sm={12} md={8} lg={6}>
+                <CourseCard course={course} />
+              </Col>
+            ))}
+          </Row>
+
+          {/* ===== PAGINATION ===== */}
+          <div style={{ textAlign: "center", marginTop: 32 }}>
+            <Pagination
+              current={page}
+              pageSize={pageSize}
+              total={total}
+              onChange={(p) => setPage(p)}
+              showSizeChanger={false}
+            />
+          </div>
+        </>
+      )}
+    </div>
+  );
+}

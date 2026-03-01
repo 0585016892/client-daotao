@@ -1,0 +1,191 @@
+/* Tổng thể trang */
+.home-wrapper {
+  background-color: #0b111a;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Section chung */
+.section-intro-v2, .section-courses, .section-cta {
+  padding: 100px 0;
+}
+
+/* Ưu điểm Section */
+.intro-card-v2 {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 24px !important;
+  text-align: center;
+  padding: 30px 10px;
+  transition: all 0.3s ease !important;
+}
+
+.intro-card-v2:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: #4facfe !important;
+  transform: translateY(-10px);
+}
+
+.icon-box {
+  font-size: 45px;
+  margin-bottom: 20px;
+}
+
+.intro-card-v2 h3 {
+  color: #fff;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.intro-card-v2 p {
+  color: #888;
+}
+
+/* Course Section */
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #fff, #4facfe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 42px !important;
+  font-weight: 800 !important;
+}
+
+.sub-text {
+  color: #888 !important;
+  font-size: 18px;
+}
+
+/* CTA Section */
+.section-cta {
+  position: relative;
+  text-align: center;
+  padding: 120px 20px;
+}
+
+.cta-blur-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(circle, rgba(79, 172, 254, 0.15) 0%, transparent 70%);
+  filter: blur(80px);
+  z-index: 0;
+}
+
+.cta-content {
+  position: relative;
+  z-index: 1;
+}
+
+.cta-content h2 {
+  color: #fff !important;
+  font-size: 48px !important;
+  margin-bottom: 20px !important;
+}
+
+.btn-cta-primary {
+  height: 60px !important;
+  padding: 0 50px !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  border-radius: 50px !important;
+  background: linear-gradient(90deg, #4facfe, #722ed1) !important;
+  border: none !important;
+  box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3) !important;
+  margin-top: 30px;
+}
+
+.btn-cta-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 40px rgba(79, 172, 254, 0.5) !important;
+}
+
+/* Loading */
+.loading-state {
+  display: flex;
+  justify-content: center;
+  padding: 100px 0;
+}
+/* Section Why Us */
+.section-why-us {
+  padding: 80px 0;
+  background-color: #0a0f1d; /* Màu nền tối như ảnh */
+}
+
+.section-header.center {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.gradient-text-blue {
+  background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700 !important;
+  font-size: 36px !important;
+}
+
+.feature-glass-card {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 20px !important;
+  height: 100%;
+  text-align: center;
+  transition: all 0.3s ease !important;
+  padding: 20px;
+}
+
+.feature-glass-card:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: #3b82f6 !important;
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.feature-icon-wrapper {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: white;
+  box-shadow: 0 8px 16px rgba(118, 75, 162, 0.3);
+}
+
+.feature-glass-card h3 {
+  color: #ffffff !important;
+  font-size: 20px;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.feature-glass-card p {
+  color: #94a3b8 !important;
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+/* Sub-text cho section header */
+.sub-text {
+  color: #94a3b8 !important;
+  max-width: 600px;
+  margin: 0 auto !important;
+  font-size: 16px;
+}
