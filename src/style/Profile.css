@@ -1,137 +1,171 @@
-.profile-page-wrapper {
-  background-color: #0b0e14;
+.profile-root {
+  background: #0d1117;
   min-height: 100vh;
   padding: 60px 0;
-  color: #fff;
+  position: relative;
+  overflow: hidden;
 }
 
-.profile-container {
-  max-width: 1100px;
+/* Background Glow */
+.profile-bg-glow {
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(31, 111, 235, 0.15) 0%, transparent 70%);
+  z-index: 0;
+}
+
+.container-limit {
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
 }
 
-/* Sidebar Card */
-.profile-side-card, .profile-main-card {
-  background: #121821 !important;
-  border: 1px solid #1e2633 !important;
-  border-radius: 24px !important;
-  color: #fff !important;
+/* Card Style */
+.glass-card {
+  background: rgba(22, 27, 34, 0.8) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid #30363d !important;
+  border-radius: 20px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Left Card */
+.user-main-card {
+  text-align: center;
+  padding: 20px 10px;
 }
 
 .avatar-wrapper {
   position: relative;
   display: inline-block;
-  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
-.profile-avatar {
-  background: linear-gradient(45deg, #1677ff, #4facfe) !important;
-  border: 4px solid #1e2633;
+.avatar-img {
+  border: 4px solid #30363d;
+  box-shadow: 0 0 20px rgba(31, 111, 235, 0.3);
 }
 
-.online-badge {
+.online-status {
   position: absolute;
-  bottom: 8px;
-  right: 8px;
+  bottom: 10px;
+  right: 10px;
   width: 18px;
   height: 18px;
   background: #52c41a;
-  border: 3px solid #121821;
+  border: 3px solid #161b22;
   border-radius: 50%;
 }
 
-.profile-name {
-  color: #fff !important;
-  margin-top: 20px;
-  font-size: 24px;
-  font-weight: 700;
-}
-
-.profile-email {
-  color: #888;
-  margin-bottom: 15px;
+.user-name-title {
+  font-size: 24px !important;
+  margin-bottom: 8px !important;
+  color: #fff;
 }
 
 .role-tag {
-  background: rgba(22, 119, 255, 0.1) !important;
-  color: #1677ff !important;
-  border: 1px solid rgba(22, 119, 255, 0.3) !important;
-  padding: 4px 15px !important;
-  border-radius: 10px !important;
+  background: rgba(31, 111, 235, 0.1) !important;
+  border: 1px solid #1f6feb !important;
+  color: #58a6ff !important;
+  border-radius: 6px;
+  padding: 2px 12px;
 }
 
-/* Tabs & Forms */
-.profile-tabs .ant-tabs-tab {
-  color: #888 !important;
+.user-details-list {
+  text-align: left;
+  margin: 32px 0;
 }
 
-.profile-tabs .ant-tabs-tab-active .ant-tabs-tab-btn {
-  color: #4facfe !important;
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 12px;
+  transition: background 0.3s;
 }
 
-.profile-tabs .ant-tabs-ink-bar {
-  background: #4facfe !important;
+.detail-item:hover { background: rgba(255, 255, 255, 0.05); }
+
+.detail-item .icon { font-size: 18px; color: #1f6feb; }
+
+.detail-item .label {
+  display: block;
+  font-size: 12px;
+  color: #8b949e;
 }
 
-.dark-form label {
-  color: #aaa !important;
+.detail-item .value {
+  font-size: 14px;
+  color: #c9d1d9;
 }
 
-.dark-input {
-  background: #1a212c !important;
-  border: 1px solid #303948 !important;
-  color: #fff !important;
+.btn-edit-profile {
   height: 45px;
+  border-radius: 10px;
+  font-weight: 600;
+  background: linear-gradient(90deg, #1f6feb, #388bfd);
+  border: none;
 }
 
-.dark-input:focus {
-  border-color: #4facfe !important;
-  box-shadow: 0 0 10px rgba(79, 172, 254, 0.2) !important;
+/* Tabs & Course List */
+.custom-profile-tabs .ant-tabs-nav::before { border-bottom: 1px solid #30363d; }
+
+.course-list-card {
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
-/* Buttons */
-.btn-gradient {
-  background: linear-gradient(90deg, #4facfe, #00f2fe) !important;
-  border: none !important;
-  height: 45px !important;
-  border-radius: 12px !important;
-  font-weight: 600 !important;
-}
-
-.btn-danger-gradient {
-  background: linear-gradient(90deg, #ff4d4f, #f759ab) !important;
-  border: none !important;
-  height: 45px !important;
-}
-
-/* List Khóa học */
-.dark-list-item {
-  border-bottom: 1px solid #1e2633 !important;
-  padding: 20px 0 !important;
-}
-
-.book-icon-box {
-  width: 45px;
-  height: 45px;
-  background: rgba(79, 172, 254, 0.1);
-  color: #4facfe;
+.course-icon-box {
+  width: 50px;
+  height: 50px;
+  background: rgba(31, 111, 235, 0.1);
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
-  font-size: 20px;
+  font-size: 24px;
+  color: #1f6feb;
 }
 
-.course-item-name {
-  color: #fff !important;
-  font-weight: 600;
+.course-info h4 { margin: 0; color: #fff; }
+.status-text { font-size: 13px; color: #8b949e; }
+
+.btn-view-course {
+  margin-left: auto;
+  border-radius: 8px;
 }
 
-.link-view {
-  color: #4facfe !important;
+/* Form Styles */
+.premium-input, .premium-select .ant-select-selector {
+  background: #0d1117 !important;
+  border-color: #30363d !important;
+  border-radius: 8px !important;
+  height: 40px !important;
+  display: flex;
+  align-items: center;
 }
 
-.dark-divider {
-  border-color: #1e2633 !important;
+.btn-update-pwd { margin-top: 20px; border-radius: 8px; }
+
+/* Modal Styles */
+.profile-edit-modal .ant-modal-content {
+  background: #161b22 !important;
+  border: 1px solid #30363d;
+  border-radius: 20px;
 }
+.modal-footer { text-align: right; margin-top: 24px; display: flex; gap: 10px; justify-content: flex-end; }
+.btn-save { background: #1f6feb; border-radius: 8px; }

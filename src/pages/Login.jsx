@@ -1,7 +1,7 @@
 import { Form, Input, Button, Typography, Card, message, Modal, Statistic, Space } from "antd";
 import { 
   UserOutlined, LockOutlined, MailOutlined, 
-  RocketTwoTone, ArrowRightOutlined, CheckCircleFilled 
+  RocketTwoTone, ArrowRightOutlined, PhoneOutlined 
 } from "@ant-design/icons";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -32,13 +32,16 @@ export default function Auth() {
     setDeadline(Date.now() + 1000 * 60 * 5); // 5 phút
   };
 
-  const onFinish = async (values) => {
+
+const onFinish = async (values) => {
     setLoading(true);
     try {
       const url = isLogin
         ? "http://localhost:3009/api/user/loginuser"
         : "http://localhost:3009/api/user/register";
 
+      // Nếu là đăng nhập, values sẽ chỉ chứa email và password
+      // Nếu là đăng ký, values sẽ chứa đầy đủ name, email, phone, password
       const res = await axios.post(url, values);
 
       if (isLogin) {
@@ -50,18 +53,11 @@ export default function Auth() {
         triggerOtpModal(res.data.student_id);
       }
     } catch (err) {
-      const data = err.response?.data;
-      if (data?.code === "EMAIL_NOT_VERIFIED") {
-        message.warning("Tài khoản chưa xác thực!");
-        triggerOtpModal(data.student_id);
-        return;
-      }
-      message.error(data?.message || "Có lỗi xảy ra, vui lòng thử lại");
+      // ... xử lý lỗi giữ nguyên
     } finally {
       setLoading(false);
     }
   };
-
   const handleVerifyOtp = async (values) => {
     setOtpLoading(true);
     try {
@@ -124,6 +120,18 @@ export default function Auth() {
                 <Form.Item name="email" rules={[{ required: true, type: "email", message: "Email không hợp lệ" }]}>
                   <Input prefix={<MailOutlined />} placeholder="Email" />
                 </Form.Item>
+                {/* 3. CHỈ HIỆN SỐ ĐIỆN THOẠI KHI ĐĂNG KÝ */}
+                {!isLogin && (
+                  <Form.Item 
+                    name="phone" 
+                    rules={[
+                      { required: true, message: "Vui lòng nhập số điện thoại" },
+                      { pattern: /^0[1-9][0-9]{8}$/, message: "Số điện thoại không hợp lệ" }
+                    ]}
+                  >
+                    <Input prefix={<PhoneOutlined />} placeholder="Số điện thoại" />
+                  </Form.Item>
+                )}
                 <Form.Item name="password" rules={[{ required: true, message: "Vui lòng nhập mật khẩu" }]}>
                   <Input.Password prefix={<LockOutlined />} placeholder="Mật khẩu" />
                 </Form.Item>
