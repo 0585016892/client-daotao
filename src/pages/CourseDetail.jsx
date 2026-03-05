@@ -19,6 +19,7 @@ import "../style/CourseDetail.css";
 const { Text, Title } = Typography;
 
 export default function CourseDetail() {
+  const UPLOAD_URL = process.env.REACT_APP_UPLOADS_URL || "http://localhost:3009/uploads";
   const { id } = useParams();
   const { user } = useAuth();
   const [course, setCourse] = useState(null);
@@ -75,7 +76,7 @@ export default function CourseDetail() {
               <div className="image-hero-wrapper">
                 <img
                   alt={course.course_name}
-                  src={imgError ? "https://via.placeholder.com/900x400?text=Course" : `http://localhost:3009/uploads/courses/${course.image}`}
+                  src={imgError ? "https://via.placeholder.com/900x400?text=Course" : `${UPLOAD_URL}/courses/${course.image}`}
                   className="course-hero-img"
                   onError={() => setImgError(true)}
                 />

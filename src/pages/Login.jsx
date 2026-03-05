@@ -15,6 +15,8 @@ const { Title, Text, Paragraph } = Typography;
 const { Countdown } = Statistic;
 
 export default function Auth() {
+
+  const API_URL = process.env.REACT_APP_API_URL;
   const { settings } = useSystem();
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -37,8 +39,8 @@ const onFinish = async (values) => {
     setLoading(true);
     try {
       const url = isLogin
-        ? "http://localhost:3009/api/user/loginuser"
-        : "http://localhost:3009/api/user/register";
+        ? `${API_URL}/user/loginuser`
+        : `${API_URL}/user/register`;
 
       // Nếu là đăng nhập, values sẽ chỉ chứa email và password
       // Nếu là đăng ký, values sẽ chứa đầy đủ name, email, phone, password
@@ -61,7 +63,7 @@ const onFinish = async (values) => {
   const handleVerifyOtp = async (values) => {
     setOtpLoading(true);
     try {
-      await axios.post("http://localhost:3009/api/user/verify-otp", {
+      await axios.post(`${API_URL}/user/verify-otp`, {
         student_id: studentId,
         otp: values.otp,
       });
