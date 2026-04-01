@@ -36,30 +36,46 @@ export default function Auth() {
 
 
 const onFinish = async (values) => {
-    setLoading(true);
-    try {
-      const url = isLogin
-        ? `${API_URL}/user/loginuser`
-        : `${API_URL}/user/register`;
+  setLoading(true);
+  try {
+    const url = isLogin
+      ? `${API_URL}/user/loginuser`
+      : `${API_URL}/user/register`;
 
-      // Nếu là đăng nhập, values sẽ chỉ chứa email và password
-      // Nếu là đăng ký, values sẽ chứa đầy đủ name, email, phone, password
-      const res = await axios.post(url, values);
+    const res = await axios.post(url, values);
 
-      if (isLogin) {
-        login({ user: res.data.user, token: res.data.token, remember: true });
-        message.success("Chào mừng bạn trở lại!");
-        navigate("/", { replace: true });
-      } else {
-        message.success("Mã xác thực đã được gửi về Email!");
+    if (isLogin) {
+      login({ user: res.data.user, token: res.data.token, remember: true });
+      message.success("Chào mừng bạn trở lại!");
+      navigate("/", { replace: true });
+    } else {
+
+      // 👇 XỬ LÝ ĐẦY ĐỦ NGHIỆP VỤ
+      if (res.data.type === "REGISTER_SUCCESS") {
+        message.success("Đăng ký thành công! OTP đã gửi về Email.");
         triggerOtpModal(res.data.student_id);
       }
-    } catch (err) {
-      // ... xử lý lỗi giữ nguyên
-    } finally {
-      setLoading(false);
+
+      if (res.data.type === "RESEND_OTP") {
+        message.warning("Email chưa xác thực. OTP đã được gửi lại.");
+        triggerOtpModal(res.data.student_id);
+      }
+
     }
-  };
+
+  } catch (err) {
+
+    if (err.response?.data?.type === "EMAIL_EXISTS") {
+      message.error("Email đã tồn tại. Vui lòng đăng nhập!");
+      setIsLogin(true);
+    } else {
+      message.error(err.response?.data?.message || "Có lỗi xảy ra");
+    }
+
+  } finally {
+    setLoading(false);
+  }
+};
   const handleVerifyOtp = async (values) => {
     setOtpLoading(true);
     try {
@@ -143,7 +159,7 @@ const onFinish = async (values) => {
                 </Button>
 
                 <div className="auth-footer">
-                  <Text type="secondary">{isLogin ? "Bạn là thành viên mới?" : "Đã có tài khoản?"}</Text>
+                  <Text type="secondary" style={{ color: "#ffffff" }}>{isLogin ? "Bạn là thành viên mới?" : "Đã có tài khoản?"}</Text>
                   <Button type="link" onClick={() => setIsLogin(!isLogin)} className="toggle-btn">
                     {isLogin ? "Đăng ký ngay" : "Quay lại đăng nhập"}
                   </Button>
