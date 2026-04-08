@@ -27,11 +27,15 @@ export default function Auth() {
   const [studentId, setStudentId] = useState(null);
   const [otpLoading, setOtpLoading] = useState(false);
   const [deadline, setDeadline] = useState(0);
+  const [otpExpired, setOtpExpired] = useState(false);
 
+  const [otpForm] = Form.useForm();
   const triggerOtpModal = (id) => {
     setStudentId(id);
     setOtpVisible(true);
-    setDeadline(Date.now() + 1000 * 60 * 5); // 5 phút
+    setOtpExpired(false);
+    setDeadline(Date.now() + 60 * 1000);
+    otpForm.resetFields(); // 🔥 reset OTP cũ
   };
 
 
@@ -65,33 +69,63 @@ const onFinish = async (values) => {
 
   } catch (err) {
 
-    if (err.response?.data?.type === "EMAIL_EXISTS") {
-      message.error("Email đã tồn tại. Vui lòng đăng nhập!");
-      setIsLogin(true);
-    } else {
-      message.error(err.response?.data?.message || "Có lỗi xảy ra");
-    }
+  const status = err.response?.status;
+  const type = err.response?.data?.type;
+  const msg = err.response?.data?.message;
 
-  } finally {
+  if (type === "EMAIL_EXISTS") {
+    message.error("Email đã tồn tại. Vui lòng đăng nhập!");
+    setIsLogin(true);
+    return;
+  }
+
+  if (status === 429) {
+    message.warning(msg || "Bạn thao tác quá nhanh. Vui lòng chờ.");
+    return;
+  }
+
+  if (status === 400) {
+    message.error(msg || "Dữ liệu không hợp lệ");
+    return;
+  }
+
+  message.error(msg || "Có lỗi xảy ra");
+}finally {
     setLoading(false);
   }
 };
-  const handleVerifyOtp = async (values) => {
-    setOtpLoading(true);
-    try {
-      await axios.post(`${API_URL}/user/verify-otp`, {
-        student_id: studentId,
-        otp: values.otp,
-      });
-      message.success("Xác thực thành công! Hãy đăng nhập.");
-      setOtpVisible(false);
-      setIsLogin(true);
-    } catch (err) {
-      message.error("Mã OTP không đúng hoặc đã hết hạn");
-    } finally {
-      setOtpLoading(false);
+const handleVerifyOtp = async (values) => {
+  if (otpExpired) {
+    message.error("OTP đã hết hạn. Vui lòng đăng ký lại.");
+    return;
+  }
+
+  setOtpLoading(true);
+
+  try {
+    await axios.post(`${API_URL}/user/verify-otp`, {
+      student_id: studentId,
+      otp: values.otp,
+    });
+
+    message.success("Xác thực thành công! Hãy đăng nhập.");
+    setOtpVisible(false);
+    setIsLogin(true);
+
+  } catch (err) {
+    const status = err.response?.status;
+    const msg = err.response?.data?.message;
+
+    if (status === 400) {
+      message.error(msg || "OTP không đúng hoặc đã hết hạn");
+      return;
     }
-  };
+
+    message.error("Lỗi xác thực OTP");
+  } finally {
+    setOtpLoading(false);
+  }
+};
 
   return (
     <div className="auth-wrapper">
@@ -171,11 +205,18 @@ const onFinish = async (values) => {
       </motion.div>
 
       <Modal
+      destroyOnClose
         open={otpVisible}
         footer={null}
         centered
         closable={true}
-        onCancel={() => setOtpVisible(false)}
+        onCancel={() => {
+          setOtpVisible(false);
+          setOtpExpired(false);
+          setStudentId(null);
+            otpForm.resetFields(); // 🔥 reset khi đóng
+
+        }}
         className="otp-modal"
         width={400}
       >
@@ -186,15 +227,35 @@ const onFinish = async (values) => {
           <Title level={3} style={{ color: '#fff', marginBottom: 8 }}>Xác thực Email</Title>
           <div className="countdown-box">
             <Text style={{ color: '#94a3b8' }}>Mã hết hạn sau: </Text>
-            <Countdown value={deadline} format="mm:ss" valueStyle={{ color: '#3b82f6', fontSize: '16px' }} />
+                <Countdown
+                    value={deadline}
+                    format="mm:ss"
+                    valueStyle={{ color: otpExpired ? "#ef4444" : "#3b82f6", fontSize: "16px" }}
+                    onFinish={() => {
+                      setOtpExpired(true);
+                      message.warning("Mã OTP đã hết hạn!");
+                      setTimeout(() => {
+                        setOtpVisible(false);
+                        setStudentId(null);
+                      }, 1500);
+                    }}
+                  />
           </div>
 
-          <Form onFinish={handleVerifyOtp} layout="vertical">
+          <Form form={otpForm} onFinish={handleVerifyOtp} layout="vertical">
             <Form.Item name="otp" rules={[{ required: true, len: 6, message: 'Nhập đủ 6 số' }]}>
               <Input.OTP length={6} className="custom-otp-input" />
             </Form.Item>
-            <Button type="primary" htmlType="submit" loading={otpLoading} block size="large" className="submit-btn">
-              XÁC THỰC
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={otpLoading}
+              block
+              size="large"
+              disabled={otpExpired}
+              className="submit-btn"
+            >
+              {otpExpired ? "OTP ĐÃ HẾT HẠN" : "XÁC THỰC"}
             </Button>
           </Form>
         </div>
