@@ -2,6 +2,9 @@ import axios from "axios";
 
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
+  headers: {
+    "ngrok-skip-browser-warning": "true"
+  },
 });
 
 // Tự gắn JWT vào header

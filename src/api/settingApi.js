@@ -6,7 +6,10 @@ import axiosClient from "./axiosClient";
 export const getSettings = async () => {
   try {
     // Sử dụng axiosClient đã cấu hình sẵn
-    const response = await axiosClient.get("/settings");
+    const response = await axiosClient.get("/settings",{
+    headers: {
+    "ngrok-skip-browser-warning": "true"
+  },});
     
     // Thông thường axios trả về object có thuộc tính data
     return response.data;
