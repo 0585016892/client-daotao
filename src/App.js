@@ -12,6 +12,7 @@ import Contact from "./pages/Contact";
 
 import { useSystem } from "./context/SystemContext";
 import MaintenancePage from "./pages/MaintenancePage"; 
+import PaymentSuccess from "./pages/PaymentSuccess";
 function App() {
   const { settings, loading } = useSystem();
 
@@ -33,6 +34,7 @@ function App() {
         <Route path="/courses" element={<Courses />} />
         <Route path="/courses/:id" element={<CourseDetail />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/payment-success" element={<PaymentSuccess />} />
         <Route path="/login" element={<Login />} />
 
         {/* PRIVATE */}
