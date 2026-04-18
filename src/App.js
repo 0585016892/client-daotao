@@ -13,6 +13,7 @@ import Contact from "./pages/Contact";
 import { useSystem } from "./context/SystemContext";
 import MaintenancePage from "./pages/MaintenancePage"; 
 import PaymentSuccess from "./pages/PaymentSuccess";
+import FloatingChatBot from "./components/FloatingChatBot";
 function App() {
   const { settings, loading } = useSystem();
 
@@ -47,7 +48,7 @@ function App() {
           }
         />
       </Routes>
-
+        <FloatingChatBot />
       <Footer />
     </>
   );
